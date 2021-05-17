@@ -4,11 +4,13 @@ token=os.getenv("token")
 import discord
 import asyncio
 import json
-import time
+from datetime import datetime
+import time as mtime
 from discord.ext import commands
 from inc import soru as sorular
-
-client = commands.Bot("-")
+intents = discord.Intents.default()  
+intents.members = True
+client = commands.Bot("-", intents=intents)
 @client.event
 async def on_connect():
   print(f"logged in as {client.user}")
