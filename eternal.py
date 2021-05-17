@@ -12,7 +12,7 @@ client = commands.Bot("-")
 @client.event
 async def on_connect():
   print(f"logged in as {client.user}")
-  await client.change_presence(activity=discord.Activity(type=discord.ActivityType.Watching, name="-help"))
+  await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="-help"))
 
 @client.command()
 async def soru(ctx):
