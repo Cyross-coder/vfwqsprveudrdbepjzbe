@@ -16,8 +16,8 @@ async def on_connect():
 
 @client.command()
 async def soru(ctx, num = "random"):
-  soru = sorular.soru18()
-  await ctx.send(soru, num)
+  soru = sorular.soru18(num)
+  await ctx.send(soru)
 @soru.error
 async def soru(ctx, devami):
         print(f'Hassikome! {ctx.author} | {devami}')
