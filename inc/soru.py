@@ -59,9 +59,13 @@ def soru18(num):
     "Hiç ex'nin akrabasıyla sevgili oldun mu? Cevabın evetse, ne kadar yakın akrabasıydı?",
     'Eyvah! En yakın arkadaşınla sevgilisini uygunsuz bi zamanda yakaladın. Durumu toparlamak için yapacağın ilk şey nedir?'
     ]
+  try:
+    sayı=int(num)
+  except:
+    sayı=False
   if num=="random":
     return random.choice(sorular)
-  elif int(num):
+  elif sayı:
     try:
       return sorular[int(num)]
     except:
