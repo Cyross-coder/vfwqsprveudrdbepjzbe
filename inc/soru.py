@@ -67,7 +67,7 @@ def soru18(num):
     return random.choice(sorular)
   elif sayı:
     try:
-      return sorular[int(num)]
+      return sorular[sayı]
     except:
       return "bu numarada soru yok"
   else:
