@@ -55,8 +55,8 @@ async def whois(ctx, member: discord.Member = None):
     embed.add_field(name="Kullanıcı Adı", value=member.display_name)
     embed.add_field(name="Oluşturulma Tarihi:", value=f"{str(crdt)}\n**{once} önce**")
     await ctx.send(embed=embed)
-  @whois.error
-  async def whois_error(ctx, error):
+@whois.error
+async def whois_error(ctx, error):
     await ctx.reply("sorun oldu ://")
     print(error)
 
