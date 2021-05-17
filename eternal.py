@@ -1,4 +1,5 @@
 # eternal
+import os
 token=os.getenv("token")
 import discord
 import asyncio
