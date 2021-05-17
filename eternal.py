@@ -21,7 +21,7 @@ async def soru(ctx, num = "random"):
 @soru.error
 async def soru(ctx, devami):
         print(f'Hassikome! {ctx.author} | {devami}')
-@bot.command()
+@client.command()
 async def whois(ctx, member: discord.Member = None):
     dateTimeObj = datetime.now()
     hourtimestamp = dateTimeObj.hour, ':', dateTimeObj.minute
