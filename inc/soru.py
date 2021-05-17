@@ -1,5 +1,5 @@
 import random
-def soru18():
+def soru18(num):
   sorular = [
     'Yeni tanıdığın biriyle ne kadar ileri gide bilirsin?',
     'Daha önce hiç karşı cinsten biri için iç çamaşırı aldın mı?',
@@ -59,4 +59,12 @@ def soru18():
     "Hiç ex'nin akrabasıyla sevgili oldun mu? Cevabın evetse, ne kadar yakın akrabasıydı?",
     'Eyvah! En yakın arkadaşınla sevgilisini uygunsuz bi zamanda yakaladın. Durumu toparlamak için yapacağın ilk şey nedir?'
     ]
-  return random.choice(sorular)
+  if num=="random":
+    return random.choice(sorular)
+  elif int(num):
+    try:
+      return sorular[int(num)]
+    except:
+      return "bu numarada soru yok"
+  else:
+    return "soru numarası sayı olmalıdır"
