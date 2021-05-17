@@ -15,9 +15,9 @@ async def on_connect():
   await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="-help"))
 
 @client.command()
-async def soru(ctx):
+async def soru(ctx, num = "random"):
   soru = sorular.soru18()
-  await ctx.send(soru)
+  await ctx.send(soru, num)
 @soru.error
 async def soru(ctx, devami):
         print(f'Hassikome! {ctx.author} | {devami}')
