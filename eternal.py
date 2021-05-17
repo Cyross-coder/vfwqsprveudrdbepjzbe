@@ -5,6 +5,7 @@ import discord
 import asyncio
 import json
 import time
+from discord.ext import commands
 #from inc import sorular
 
 client = commands.Bot("-")
