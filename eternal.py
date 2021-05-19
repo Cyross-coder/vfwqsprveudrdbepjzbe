@@ -33,7 +33,7 @@ async def server(ctx, what = None):
     return
   else:
     await ctx.send("ben o kadar zeki değilim")
-@soru.error
+@server.error
 async def server(ctx, devami):
         print(f'Hassikome! {ctx.author} | {devami}')
 @client.command()
