@@ -24,6 +24,19 @@ async def soru(ctx, num = "random"):
 async def soru(ctx, devami):
         print(f'Hassikome! {ctx.author} | {devami}')
 @client.command()
+async def server(ctx, what = None):
+  if what == None:
+    await ctx.send("serverin neyi?")
+    return
+  elif what == "pp" or what == "icon":
+    await ctx.send(ctx.message.guild.icon_url)
+    return
+  else:
+    await ctx.send("ben o kadar zeki değilim")
+@soru.error
+async def soru(ctx, devami):
+        print(f'Hassikome! {ctx.author} | {devami}')
+@client.command()
 async def whois(ctx, member: discord.Member = None):
     dateTimeObj = datetime.now()
     hourtimestamp = dateTimeObj.hour, ':', dateTimeObj.minute
