@@ -34,7 +34,7 @@ async def server(ctx, what = None):
   else:
     await ctx.send("ben o kadar zeki değilim")
 @soru.error
-async def soru(ctx, devami):
+async def server(ctx, devami):
         print(f'Hassikome! {ctx.author} | {devami}')
 @client.command()
 async def whois(ctx, member: discord.Member = None):
