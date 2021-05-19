@@ -29,7 +29,7 @@ async def server(ctx, what = None):
     await ctx.send("serverin neyi?")
     return
   elif what == "pp" or what == "icon":
-    await ctx.send(ctx.message.guild.icon_url)
+    await ctx.send(ctx.guild.icon_url)
     return
   else:
     await ctx.send("ben o kadar zeki değilim")
