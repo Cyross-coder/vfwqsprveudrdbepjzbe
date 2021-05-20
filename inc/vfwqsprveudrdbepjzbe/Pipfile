@@ -7,7 +7,7 @@ verify_ssl = true
 [packages]
 
 discord = "*"
-mysql-connector-python = f*"
+mysql-connector-python = "*"
 protobuf = "*"
 [requires]
 
