@@ -5,14 +5,14 @@ import discord
 import random
 import asyncio
 import json
-import urlparse
+import urllib.parse
 import time as mtime
 import mysql.connector
 from datetime import datetime
 from discord.ext import commands
 from inc import soru as sorular
 urlparse.uses_netloc.append('mysql')
-url = urlparse.urlparse(os.environ['DATABASE_URL'])
+url = urllib.parse.urlparse(os.environ['DATABASE_URL'])
 DATABASE={
     'NAME': url.path[1:],
     'USER': url.username,
