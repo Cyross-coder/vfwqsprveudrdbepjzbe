@@ -5,10 +5,35 @@ import discord
 import random
 import asyncio
 import json
-from datetime import datetime
+import urlparse
 import time as mtime
+import mysql.connector
+from datetime import datetime
 from discord.ext import commands
 from inc import soru as sorular
+urlparse.uses_netloc.append('mysql')
+url = urlparse.urlparse(os.environ['DATABASE_URL'])
+  DATABASE={
+    'NAME': url.path[1:],
+    'USER': url.username,
+    'PASSWORD': url.password,
+    'HOST': url.hostname,
+    'PORT': url.port,
+  }
+
+class mysql:
+    mydb = mysql.connector.connect(
+      host=DATABASE["HOST"],
+      port=DATABASE["PORT"],
+      database=DATABASE["NAME"],
+      user=DATABASE["USER"],
+      password=DATABASE["PASSWORD"]
+    )
+    mycursor = mydb.cursor()
+    mycursor.execute("CREATE TABLE IF NOT EXISTS (id INT(18) UNSIGNED PRIMARY KEY, xp INT(30) NOT NULL, equips VARCHAR(50) NOT NULL, inventory VARCHAR(255) NOT NULL, charracter VARCHAR(255), datejoin TIMESTAMP DEFAULT CURRENT_TIMESTAMP)")
+    async def register(userid, charracter):
+      mycursor.execute(f"INSERT INTO `table_name`(id  ,xp,inventory,equips,charracter) VALUES ({userid},{empinv}, 'nothing', '{charracter}')")
+print(mydb)
 intents = discord.Intents.default()  
 intents.members = True
 client = commands.Bot("-", intents=intents)
@@ -89,6 +114,14 @@ async def whois_error(ctx, error):
     await ctx.reply("sorun oldu ://")
     print(error)
 class rpgame:
+  class funcs:
+    async def weapon(userid):
+     # name=await mysql.equip(userid)
+      name="yumruk"
+      if not name == 'nothing':
+        return weapons[name]
+      else:
+        return 'yumruk'
   class things:
     class items:
       weapons={}
@@ -183,14 +216,22 @@ class rpgame:
       maps["Binaiçi"]["specs"]["m_speed"]=1.2
       maps["Binaiçi"]["specs"]["items_og"]={}
   @client.command()
-  async def start(ctx, _with: discord.Member = None, _map='random', difficulty='normal'):
-    await ctx.reply(rpgame.things.maps.maps)
-    return
-    if _map=='random':
-      pmap=rpgame.things.maps.maps[random.choice(rpgame.things.maps.mapdict)]
-    else:
-      try:
-        pmap=rpgame.things.maps.maps[_map]
-      except:
+  async def battle(ctx, _with: discord.Member = None, _map='random', difficulty='normal'):
+    if rpgame.funcs.battlereq(ctx.author.id, _with.id):
+      if _map=='random':
         pmap=rpgame.things.maps.maps[random.choice(rpgame.things.maps.mapdict)]
+      else:
+        try:
+          pmap=rpgame.things.maps.maps[_map]
+        except:
+          pmap=rpgame.things.maps.maps[random.choice(rpgame.things.maps.mapdict)]
+      embed=discord.Embed(title="Meydan okuma", description=f"{ctx.author.name}, {_with.name} meydan okuyor", color=0xde7a37)
+      embed.add_field(name="Harita", value=f"{pmap}\n*{pmap["description"]}*", inline=False)
+      embed.add_field(name=ctx.author.name, value=await rpgame.funcs.weapon(ctx.author.id), inline=True)
+      embed.add_field(name=_with.name, value=await rpgame.funcs.weapon(_with.name), inline=True)
+      await ctx.send(embed=embed)
+    else:
+      embed=discord.Embed(title="Meydan okuma başarısız", description="Senin veya karşı tarafın bekleyen meydan okuması var\n`-battle kb`: bekleyen meydan okumayı kabul et\n`-battle rb`: bekleyen meydan okumayı reddet", color=0xff0000)
+      await ctx.send 
+    
 client.run(token)
