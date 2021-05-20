@@ -186,6 +186,8 @@ class rpgame:
       maps["Binaiçi"]["specs"]["items_og"]={}
   @client.command()
   async def start(ctx, _with: discord.Member = None, _map='random', difficulty='normal'):
+    await ctx.reply(rpgame.things.maps.maps)
+    return
     if _map=='random':
       pmap=rpgame.things.maps.maps[random.choice(rpgame.things.maps.mapdict)]
     else:
