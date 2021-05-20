@@ -2,6 +2,7 @@
 import os
 token=os.getenv("token")
 import discord
+import random
 import asyncio
 import json
 from datetime import datetime
@@ -87,5 +88,91 @@ async def whois(ctx, member: discord.Member = None):
 async def whois_error(ctx, error):
     await ctx.reply("sorun oldu ://")
     print(error)
-
+class rpgame:
+  class things:
+    class items:
+      weapons={}
+      weapons['Basit yay']={}
+      weapons['Basit yay']["class"]="Sokak Eşyaları"
+      weapons['Basit yay']["description"]="Eldeki eşyalarla yapılmış her an kırılacakmış gibi duran bir yay, en azından, ok atıyor.."
+      weapons['Basit yay']['type']='bow'
+      weapons['Basit yay']['range']={}
+      weapons['Basit yay']['range']['max']=30
+      weapons['Basit yay']['range']['nice']=10
+      weapons['Basit yay']['atk']=5
+      weapons['Basit yay']['req_slot_inv']=2
+      weapons['Basit yay']['req_lvl']=0
+      weapons['Basit yay']['rarity']=40
+      weapons['Basit yay']['sellprice']=10
+      
+      weapons['Sarman yayı']={}
+      weapons['Sarman yayı']["class"]="Sokak Eşyaları"
+      weapons['Sarman yayı']["description"]="Kölelere yaptırılmış bu yay el işçiliği, malzemeden kaçılmış, ve, idare eder."
+      weapons['Sarman yayı']['type']='bow'
+      weapons['Sarman yayı']['range']={}
+      weapons['Sarman yayı']['range']['max']=50
+      weapons['Sarman yayı']['range']['nice']=15
+      weapons['Sarman yayı']['atk']=9
+      weapons['Sarman yayı']['req_slot_inv']=2
+      weapons['Sarman yayı']['req_lvl']=0
+      weapons['Sarman yayı']['rarity']=30
+      weapons['Sarman yayı']['sellprice']=15
+      
+      weapons['Filkon yayı']={}
+      weapons['Filkon yayı']["class"]="Muhafız"
+      weapons['Filkon yayı']["description"]="Çok kullanımdan eskimiş bu yay muhafız eğitimlerinde kullanılır"
+      weapons['Filkon yayı']['type']='bow'
+      weapons['Filkon yayı']['range']={}
+      weapons['Filkon yayı']['range']['max']=50
+      weapons['Filkon yayı']['range']['nice']=15
+      weapons['Filkon yayı']['atk']=11
+      weapons['Filkon yayı']['req_slot_inv']=3
+      weapons['Filkon yayı']['req_lvl']=0
+      weapons['Filkon yayı']['rarity']=28
+      weapons['Filkon yayı']['sellprice']=19
+      
+      weapons['Lirik yay']={}
+      weapons['Lirik yay']["class"]="Mühendis"
+      weapons['Lirik yay']["description"]="Karmaşık yapıya sahip bu yay klonlanamaz"
+      weapons['Lirik yay']['type']='bow'
+      weapons['Lirik yay']['range']={}
+      weapons['Lirik yay']['range']['max']=40
+      weapons['Lirik yay']['range']['nice']=25
+      weapons['Lirik yay']['atk']=20
+      weapons['Lirik yay']['req_slot_inv']=3
+      weapons['Lirik yay']['req_lvl']=5
+      weapons['Lirik yay']['rarity']=10
+      weapons['Lirik yay']['sellprice']=25
+      
+      weapons['Eden kılıcı']={}
+      weapons['Eden kılıcı']["class"]="Sokak Eşyaları"
+      weapons['Eden kılıcı']["description"]="Çeşitli isyanlarda, isyancılar tarafından üretilip kullanılmış basit bir kılıç.. biraz, kör.."
+      weapons['Eden kılıcı']['type']='sword'
+      weapons['Eden kılıcı']['range']={}
+      weapons['Eden kılıcı']['range']['max']=1
+      weapons['Eden kılıcı']['range']['nice']=1
+      weapons['Eden kılıcı']['atk']=7
+      weapons['Eden kılıcı']['req_slot_inv']=3
+      weapons['Eden kılıcı']['req_lvl']=0
+      weapons['Eden kılıcı']['rarity']=70
+      weapons['Eden kılıcı']['sellprice']=5
+      
+    class maps:
+      mapdict=[
+        "Terkedilmiş Vadi",
+        "Korumasız Dağlar",
+        "Binaiçi"
+        ]
+      maps={}
+      maps["Terkedilmiş Vadi"]={}
+      maps["Terkedilmiş Vadi"]['description']="Bir zamanlar yerleşimin olduğu bu düzlükte şimdi kimse yaşamıyor, savaşı doğanın kazandığı bu yerde hareket etmek güç"
+      maps["Terkedilmiş Vadi"]["specs"]={}
+      maps["Terkedilmiş Vadi"]["specs"]["sp"]=0.7
+      maps["Terkedilmiş Vadi"]["specs"]["m_speed"]=1.2
+      maps["Terkedilmiş Vadi"]["specs"]["items_og"]={}
+  @client.command()
+  async def start(ctx, _with: discord.Member = None, _map='random', difficulty='normal'):
+    if _map=='random':
+      pmap=rpgame.things.maps.maps[random.randint(0, len(rpgame.things.maps.mapdict))]
+    await ctx.reply(pmap)
 client.run(token)
