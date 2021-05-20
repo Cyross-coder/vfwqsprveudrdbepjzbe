@@ -7,7 +7,7 @@ verify_ssl = true
 [packages]
 
 discord = "*"
-mysql-connector-python = "*"
+mysql-connector-python-rf = "*"
 
 [requires]
 
