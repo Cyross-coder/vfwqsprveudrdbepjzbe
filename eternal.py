@@ -13,13 +13,13 @@ from discord.ext import commands
 from inc import soru as sorular
 urlparse.uses_netloc.append('mysql')
 url = urlparse.urlparse(os.environ['DATABASE_URL'])
-  DATABASE={
+DATABASE={
     'NAME': url.path[1:],
     'USER': url.username,
     'PASSWORD': url.password,
     'HOST': url.hostname,
     'PORT': url.port,
-  }
+}
 
 class mysql:
     mydb = mysql.connector.connect(
