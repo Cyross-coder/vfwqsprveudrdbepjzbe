@@ -170,14 +170,12 @@ class rpgame:
       maps["Terkedilmiş Vadi"]["specs"]["sp"]=0.7
       maps["Terkedilmiş Vadi"]["specs"]["m_speed"]=1.2
       maps["Terkedilmiş Vadi"]["specs"]["items_og"]={}
-      maps={}
       maps["Korumasız Dağlar"]={}
       maps["Korumasız Dağlar"]['description']="Olumsuz, burdan çıkış yok gibi. muhafızların pes edip burayı canavarlara bıraktığı kesin."
       maps["Korumasız Dağlar"]["specs"]={}
       maps["Korumasız Dağlar"]["specs"]["sp"]=0.7
       maps["Korumasız Dağlar"]["specs"]["m_speed"]=1.2
       maps["Korumasız Dağlar"]["specs"]["items_og"]={}
-      maps={}
       maps["Binaiçi"]={}
       maps["Binaiçi"]['description']="Kapalı ortmda düşük item bulma olasılığı, ama güvenli, sakin."
       maps["Binaiçi"]["specs"]={}
