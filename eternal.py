@@ -37,6 +37,19 @@ async def server(ctx, what = None):
 async def server(ctx, devami):
         print(f'Hassikome! {ctx.author} | {devami}')
 @client.command()
+async def user(ctx, who: discord.Member, what = None):
+  if what == None:
+    await ctx.send("Kullanıcının neyi?")
+    return
+  elif what == "pp" or what == "avatar":
+    await ctx.send(who.avatar_url)
+    return
+  else:
+    await ctx.send("ben o kadar zeki değilim")
+@server.error
+async def server(ctx, devami):
+        print(f'Hassikome! {ctx.author} | {devami}')
+@client.command()
 async def whois(ctx, member: discord.Member = None):
     dateTimeObj = datetime.now()
     hourtimestamp = dateTimeObj.hour, ':', dateTimeObj.minute
