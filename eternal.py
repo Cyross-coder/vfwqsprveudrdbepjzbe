@@ -226,7 +226,7 @@ class rpgame:
         except:
           pmap=rpgame.things.maps.maps[random.choice(rpgame.things.maps.mapdict)]
       embed=discord.Embed(title="Meydan okuma", description=f"{ctx.author.name}, {_with.name} meydan okuyor", color=0xde7a37)
-      embed.add_field(name="Harita", value=f"{pmap}\n*{pmap["description"]}*", inline=False)
+      embed.add_field(name="Harita", value=f"{pmap}\n*{pmap['description']}*", inline=False)
       embed.add_field(name=ctx.author.name, value=await rpgame.funcs.weapon(ctx.author.id), inline=True)
       embed.add_field(name=_with.name, value=await rpgame.funcs.weapon(_with.name), inline=True)
       await ctx.send(embed=embed)
