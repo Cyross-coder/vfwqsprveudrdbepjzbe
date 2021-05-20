@@ -187,11 +187,10 @@ class rpgame:
   @client.command()
   async def start(ctx, _with: discord.Member = None, _map='random', difficulty='normal'):
     if _map=='random':
-      pmap=rpgame.things.maps.maps[random.randint(0, len(rpgame.things.maps.mapdict))]
+      pmap=rpgame.things.maps.maps[random.choice(rpgame.things.maps.mapdict)]
     else:
       try:
         pmap=rpgame.things.maps.maps[_map]
       except:
-        pmap=rpgame.things.maps.maps[random.randint(0, len(rpgame.things.maps.mapdict))]
-    await ctx.reply(pmap)
+        pmap=rpgame.things.maps.maps[random.choice(rpgame.things.maps.mapdict)]
 client.run(token)
