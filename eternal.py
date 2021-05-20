@@ -46,8 +46,8 @@ async def user(ctx, who: discord.Member, what = None):
     return
   else:
     await ctx.send("ben o kadar zeki değilim")
-@server.error
-async def server(ctx, devami):
+@user.error
+async def user(ctx, devami):
         print(f'Hassikome! {ctx.author} | {devami}')
 @client.command()
 async def whois(ctx, member: discord.Member = None):
