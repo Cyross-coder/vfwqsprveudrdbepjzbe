@@ -133,7 +133,7 @@ class rpgame:
       heroid=ctx.author.id
       registered=await rpgame.funcs.registered(ctx.author.id)
       if registered:
-        ctx.reply("zaten kayıtlısın, baka!")
+        await ctx.reply("zaten kayıtlısın, baka!")
         return
       while not registered:
         #embed
