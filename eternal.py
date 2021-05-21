@@ -13,7 +13,7 @@ from discord.ext import commands
 from inc import soru as sorular
 class sql:
     veritabanı=ssql.connect("veri.sql")
-    im=nveritabanı.cursor()
+    im=veritabanı.cursor()
     im.execute("CREATE TABLE IF NOT EXISTS users (id INT(18) PRIMARY KEY, xp INT(30) NOT NULL DEFAULT '0', equips VARCHAR(50) NOT NULL DEFAULT '[]', inventory VARCHAR(255) NOT NULL DEFAULT '[]', charracter VARCHAR(255), datejoin TIMESTAMP DEFAULT CURRENT_TIMESTAMP)")
     im.execute("CREATE TABLE IF NOT EXISTS battles (ilk INT(18), iki INT(18))")
     class defs:
