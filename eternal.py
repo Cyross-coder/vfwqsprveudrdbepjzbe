@@ -21,7 +21,7 @@ class sql:
         sql.im.execute(f"INSERT INTO `table_name`(id  ,xp,inventory,equips,charracter) VALUES ({userid},{empinv}, 'nothing', '{charracter}')")
         veritabanı.commit()
       async def is_registered(user_id):
-        r=sql.im.execute(f"SELECT * FROM users WHERE id=user_id")
+        r=sql.im.execute(f"SELECT * FROM users WHERE id='{user_id}'")
         if r.fetchall() > 0:
           return True
         else:
