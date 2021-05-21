@@ -219,6 +219,6 @@ class rpgame:
       await ctx.send(embed=embed)
     else:
       embed=discord.Embed(title="Meydan okuma başarısız", description="Senin veya karşı tarafın bekleyen meydan okuması var\n`-battle kb`: bekleyen meydan okumayı kabul et\n`-battle rb`: bekleyen meydan okumayı reddet", color=0xff0000)
-      await ctx.send 
+      await ctx.send(embed)
     
 client.run(token)
