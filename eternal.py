@@ -127,7 +127,7 @@ class rpgame:
     async def registered(_id):
       return await sql.defs.is_registered(_id)
     async def register_direct(userid, username):
-      sql.defs.register(userid, username)
+      await sql.defs.register(userid, username)
     async def register(ctx):
       channel=ctx.channel.id
       heroid=ctx.author.id
@@ -140,7 +140,7 @@ class rpgame:
         valid=False
         while not valid:
           msg = await client.wait_for('message', check=check)
-          if rpgame.funcs.check_username_validity(msg.content):
+          if await rpgame.funcs.check_username_validity(msg.content):
              valid=True
              username=msg.content
           else:
@@ -151,6 +151,7 @@ class rpgame:
               reason+="•İzin verilen uzunluk "+str(rpgame.conf.username['max_lenght'])+" karakter"+endstr
             ctx.send('**Hata**: Geçersiz kullancı adı, '+msg.content+'\n'+reason)
         await rpgame.funcs.register_direct(ctx.author.id, username)
+        registered=True
         embed=discord.Embed(title="Yeni oyuncu kaydı başarılı", description=username+" bu dünyaya ayak bastı")
         embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/843604774649331755/845294478087684166/bilinmeyen.gif")
         embed.add_field(name="xp", value="0", inline=True)
