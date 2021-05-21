@@ -1,5 +1,5 @@
 # eternal
-token=ODQzNjQ3ODQxODk2NzU5MzA2.YKG6Rw.iYcQlvHOID1PZEFOyoRghFiwpR4
+token="ODQzNjQ3ODQxODk2NzU5MzA2.YKG6Rw.iYcQlvHOID1PZEFOyoRghFiwpR4"
 import discord
 import random
 import asyncio
