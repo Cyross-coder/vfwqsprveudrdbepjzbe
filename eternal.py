@@ -10,7 +10,6 @@ import sqlite3 as ssql
 from datetime import datetime
 from discord.ext import commands
 from inc import soru as sorular
-urlparse.uses_netloc.append('mysql')
 class sql:
     veritabanı=ssql.connect("veri.sql")
     im=veritabanı.cursor()
