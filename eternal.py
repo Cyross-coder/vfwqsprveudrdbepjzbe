@@ -24,7 +24,7 @@ class sql:
         if r.fetchall() > 0:
           return True
         else:
-        return False
+          return False
 intents = discord.Intents.default()  
 intents.members = True
 client = commands.Bot("-", intents=intents)
