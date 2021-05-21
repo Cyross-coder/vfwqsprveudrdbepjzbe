@@ -98,6 +98,8 @@ async def whois_error(ctx, error):
     print(error)
 class rpgame:
   class funcs:
+    async def battlereq(who, _with):
+      return True
     async def weapon(userid):
      # name=await mysql.equip(userid)
       name="yumruk"
