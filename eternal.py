@@ -106,7 +106,7 @@ async def whois_error(ctx, error):
 class rpgame:
   class funcs:
     async def registered(_id):
-      await mysql.defs.is_registered(_id)
+      return await mysql.defs.is_registered(_id)
     async def battlereq(who, _with):
       return False
     async def weapon(userid):
