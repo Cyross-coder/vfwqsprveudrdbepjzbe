@@ -113,7 +113,17 @@ class rpgame:
       "kaydol",
       "register",
       ]
+  class conf:
+    username={}
+    username ["max_lenght"] = 18
   class funcs:
+    async def check_username_validity(username):
+      if len(username)>rpgame.conf.username["max_lenght"]:
+        return False
+      elif any(not c.isalnum() for c in username):
+        return False
+      else:
+        return True
     async def registered(_id):
       return await sql.defs.is_registered(_id)
     async def register_direct(userid, username):
@@ -130,7 +140,7 @@ class rpgame:
         valid=False
         while not valid:
           msg = await client.wait_for('message', check=check)
-          if rpgame.defs.check_username_validity(msg.content):
+          if rpgame.funcs.check_username_validity(msg.content):
              valid=True
              username=msg.content
           else:
@@ -140,7 +150,7 @@ class rpgame:
             if len(msg.content) > rpgame.conf.username['max_lenght']:
               reason+="•İzin verilen uzunluk "+str(rpgame.conf.username['max_lenght'])+" karakter"+endstr
             ctx.send('**Hata**: Geçersiz kullancı adı, '+msg.content+'\n'+reason)
-        await rpgame.defs.register_direct(ctx.author.id, username)
+        await rpgame.funcs.register_direct(ctx.author.id, username)
         await ctx.send(embed=embed)
         await asyncio.sleep(2)
         spam1 = await ctx.send("Eternal'a hoşgeldin "+username)
