@@ -109,12 +109,13 @@ class rpgame:
   class funcs:
     async def registered(_id):
       return await sql.defs.is_registered(_id)
-    async def register(ctx, userid):
+    async def register_direct(userid, username):
+      sql.defs.register(userid, username)
+    async def register(ctx):
       channel=ctx.channel.id
       heroid=ctx.author.id
       registered=False
-      canceled=False
-      while not registered or canceled or time.time()-timeout>40:
+      while not registered:
         #embed
         await ctx.send(embed=embed)
         def check(message):
@@ -132,7 +133,7 @@ class rpgame:
             if len(msg.content) > rpgame.conf.username['max_lenght']:
               reason+="•İzin verilen uzunluk "+str(rpgame.conf.username['max_lenght'])+" karakter"+endstr
             ctx.send('**Hata**: Geçersiz kullancı adı, '+msg.content+'\n'+reason)
-        
+        await rpgame.defs.register_direct(ctx.author.id, username)
         await ctx.send(embed=embed)
         await asyncio.sleep(2)
         spam1 = await ctx.send("Eternal'a hoşgeldin "+username)
@@ -144,9 +145,20 @@ class rpgame:
         await message.delete(spam2)
         spam4 = await ctx.send("Markette item satabilir veya alabilirsin, unutma! alış fiyatı satış fiyatından hep yüksek olur")
         await asyncio.sleep(3)
+        await message.delete(spam3)
         spam5 = await ctx.send("Markette item satmak için `-rpg sell {item} {miktar}` miktar değeri girilmezse 1 adet satılır")
-        
-      await ctx.send
+        await asyncio.sleep(2)
+        await message.delete(spam4)
+        spam6 = await ctx.send("Markette item satmak için `-rpg sell {item} {miktar}` miktar değeri girilmezse 1 adet satılır")
+        await asyncio.sleep(2)
+        await message.delete(spam6)
+        spam7= await ctx.send("Güncel satış fifiyatlarına`rpg market stat` ile ulaşabilirsin")
+        await asyncio.sleep(2)
+        await message.delete(spam7)
+        spam8= await ctx.send("Markette satacak eşya bulmak için haritaMarkette, detaylı bilgi `-rpg help avcılık`")
+        await asyncio.sleep(3)
+        await message.delete(spam8)
+        await ctx.send('buraya profili resim olarak gösterticem 0xp fln klan yok fln fln')
     async def battlereq(who, _with):
       return False
     async def weapon(userid):
