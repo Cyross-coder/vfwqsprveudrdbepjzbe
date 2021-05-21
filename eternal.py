@@ -14,9 +14,38 @@ from inc import soru as sorular
 class sql:
     veritabani=ssql.connect("veri.sql")
     im=veritabani.cursor()
-    im.execute("CREATE TABLE IF NOT EXISTS users (id INT(18) PRIMARY KEY, xp INT(30) NOT NULL DEFAULT '0', equips VARCHAR(50) NOT NULL DEFAULT '[]', inventory VARCHAR(255) NOT NULL DEFAULT '[]', charracter VARCHAR(255), datejoin TIMESTAMP DEFAULT CURRENT_TIMESTAMP)")
+    im.execute("CREATE TABLE IF NOT EXISTS users (id INT(18) PRIMARY KEY, archxp INT(30), yakınxp INT(30), xp INT(30) NOT NULL DEFAULT '0', equips VARCHAR(50) NOT NULL DEFAULT '[]', inventory VARCHAR(255) NOT NULL DEFAULT '[]', charracter VARCHAR(255), datejoin TIMESTAMP DEFAULT CURRENT_TIMESTAMP)")
     im.execute("CREATE TABLE IF NOT EXISTS battles (ilk INT(18), iki INT(18))")
     class defs:
+      async def check_xp(_id, amount):
+        return sql.im.execute(f"SELECT `xp` FROM users WHERE id='{_id}'").fetchall()[0]
+      async def dec_xp(_id, amount):
+        xp=sql.im.execute(f"SELECT `xp` FROM users WHERE id='{_id}'").fetchall()[0]
+        return sql.im.execute(f"UPDATE `users` SET xp={int(xp)-int(amount)} WHERE id={_id}")
+      async def inc_xp(_id, amount):
+        xp=sql.im.execute(f"SELECT `xp` FROM users WHERE id='{_id}'").fetchall()[0]
+        return sql.im.execute(f"UPDATE `users` SET xp={int(xp)+int(amount)} WHERE id={_id}")
+      async def rem_battle(_from):
+        return sql.im.execute(f"DELETE FROM `battles` WHERE ilk={_from}")
+      async def get_battle(_id):
+        _from=""
+        _to=""
+        acn=sql.im.execute(f"SELECT `ilk` FROM battles WHERE ilk='{_id}'")
+        if len(acn.fetchall()) > 0:
+          _from=acn.fetchall()[0]
+          yyn=sql.im.execute(f"SELECT `iki` FROM battles WHERE ilk='{_id}'")
+          _to=yyn.fetchall()[0]
+        else:
+          yyn=sql.im.execute(f"SELECT `ilk` FROM battles WHERE iki='{_id}'")
+          if len(yyn.fetchall()) > 0:
+            _from=yyn.fetchall()[0]
+            acn=sql.im.execute(f"SELECT `iki` FROM battles WHERE iki='{_id}'")
+            _to=acn.fetchall()[0]
+          else:
+            return False
+        battle={}
+        battle['from']=_from
+        battle['to']=_to
       async def register(userid, charracter):
         sql.im.execute(f"INSERT INTO `users`(id,equips,charracter) VALUES ({userid}, 'yumruk', '{charracter}')")
         sql.veritabani.commit()
@@ -174,13 +203,13 @@ class rpgame:
         spam5 = await ctx.send("Markette item satmak için `-rpg sell {item} {miktar}` miktar değeri girilmezse 1 adet satılır")
         await asyncio.sleep(2)
         await spam4.delete()
-        spam6 = await ctx.send("Markette item satmak için `-rpg sell {item} {miktar}` miktar değeri girilmezse 1 adet satılır")
+        spam6 = await ctx.send("İtemlerin fiyatları gün içinde değişebilir, hemen satmadan önce doğru zamanı beklemek isteyebilirsin.")
         await asyncio.sleep(2)
         await spam5.delete()
-        spam7= await ctx.send("Güncel satış fifiyatlarına`rpg market stat` ile ulaşabilirsin")
+        spam7= await ctx.send("Güncel satış fiyatlarına`rpg market stat` ile ulaşabilirsin")
         await asyncio.sleep(2)
         await spam6.delete()
-        spam8= await ctx.send("Markette satacak eşya bulmak için haritaMarkette, detaylı bilgi `-rpg help avcılık`")
+        spam8= await ctx.send("Markette satacak eşya bulmak için haritada gezinmelisin detaylı bilgi `-rpg help avcılık`")
         await asyncio.sleep(3)
         await spam7.delete()
         await asyncio.sleep(2)
@@ -195,6 +224,10 @@ class rpgame:
         return weapons[name]
       else:
         return 'yumruk'
+    async def get_battle(_id):
+      return sql.defs.get_battle(_id)
+    async def battle(ctx, user2):
+      battleid=await rpgame.funcs.get_battle()
   class things:
     class items:
       weapons={}
