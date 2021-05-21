@@ -18,6 +18,12 @@ class sql:
     im.execute("CREATE TABLE IF NOT EXISTS battles (ilk INT(18), iki INT(18))")
     async def register(userid, charracter):
       im.execute(f"INSERT INTO `table_name`(id  ,xp,inventory,equips,charracter) VALUES ({userid},{empinv}, 'nothing', '{charracter}')")
+    async def is_registered(user_id):
+      r=im.execute(f"SELECT * FROM users WHERE id=user_id")
+      if r.fetchall() > 0:
+        return True
+      else:
+        return False
 intents = discord.Intents.default()  
 intents.members = True
 client = commands.Bot("-", intents=intents)
@@ -99,6 +105,8 @@ async def whois_error(ctx, error):
     print(error)
 class rpgame:
   class funcs:
+    async def registered(_id):
+      await mysql.defs.is_registered(_id)
     async def battlereq(who, _with):
       return False
     async def weapon(userid):
