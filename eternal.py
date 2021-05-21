@@ -1,36 +1,20 @@
 # eternal
-import os
-token=os.getenv("token")
+token=ODQzNjQ3ODQxODk2NzU5MzA2.YKG6Rw.iYcQlvHOID1PZEFOyoRghFiwpR4
 import discord
 import random
 import asyncio
 import json
 import urllib.parse
 import time as mtime
-import mysql.connector
+import sqlite3 as ssql
 from datetime import datetime
 from discord.ext import commands
 from inc import soru as sorular
 urlparse.uses_netloc.append('mysql')
-url = urllib.parse.urlparse(os.environ['DATABASE_URL'])
-DATABASE={
-    'NAME': url.path[1:],
-    'USER': url.username,
-    'PASSWORD': url.password,
-    'HOST': url.hostname,
-    'PORT': url.port,
-}
-
-class mysql:
-    mydb = mysql.connector.connect(
-      host=DATABASE["HOST"],
-      port=DATABASE["PORT"],
-      database=DATABASE["NAME"],
-      user=DATABASE["USER"],
-      password=DATABASE["PASSWORD"]
-    )
-    mycursor = mydb.cursor()
-    mycursor.execute("CREATE TABLE IF NOT EXISTS (id INT(18) UNSIGNED PRIMARY KEY, xp INT(30) NOT NULL, equips VARCHAR(50) NOT NULL, inventory VARCHAR(255) NOT NULL, charracter VARCHAR(255), datejoin TIMESTAMP DEFAULT CURRENT_TIMESTAMP)")
+class sql:
+    veritabanı=ssql.connect("veri.sql")
+    im=veritabanı.cursor()
+    im.execute("CREATE TABLE IF NOT EXISTS (id INT(18) UNSIGNED PRIMARY KEY, xp INT(30) NOT NULL, equips VARCHAR(50) NOT NULL, inventory VARCHAR(255) NOT NULL, charracter VARCHAR(255), datejoin TIMESTAMP DEFAULT CURRENT_TIMESTAMP)")
     async def register(userid, charracter):
       mycursor.execute(f"INSERT INTO `table_name`(id  ,xp,inventory,equips,charracter) VALUES ({userid},{empinv}, 'nothing', '{charracter}')")
 print(mydb)
