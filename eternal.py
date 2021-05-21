@@ -109,6 +109,44 @@ class rpgame:
   class funcs:
     async def registered(_id):
       return await sql.defs.is_registered(_id)
+    async def register(ctx, userid):
+      channel=ctx.channel.id
+      heroid=ctx.author.id
+      registered=False
+      canceled=False
+      while not registered or canceled or time.time()-timeout>40:
+        #embed
+        await ctx.send(embed=embed)
+        def check(message):
+          return m.author.id == heroid and m.channel.id == channel
+        valid=False
+        while not valid:
+          msg = await client.wait_for('message', check=check)
+          if rpgame.defs.check_username_validity(msg.content):
+             valid=True
+             username=msg.content
+          else:
+            endstr="\n"
+            if any(not c.isalnum() for c in msg.content):
+              reason+="•Geçersiz karakter içeriyor "+c+endstr
+            if len(msg.content) > rpgame.conf.username['max_lenght']:
+              reason+="•İzin verilen uzunluk "+str(rpgame.conf.username['max_lenght'])+" karakter"+endstr
+            ctx.send('**Hata**: Geçersiz kullancı adı, '+msg.content+'\n'+reason)
+        
+        await ctx.send(embed=embed)
+        await asyncio.sleep(2)
+        spam1 = await ctx.send("Eternal'a hoşgeldin "+username)
+        await asyncio.sleep(2)
+        spam2 = await ctx.send("Komut listesi için -rpg help")
+        await asyncio.sleep(2)
+        spam3 = await ctx.send("Markete erişim -rpg market")
+        await asyncio.sleep(1)
+        await message.delete(spam2)
+        spam4 = await ctx.send("Markette item satabilir veya alabilirsin, unutma! alış fiyatı satış fiyatından hep yüksek olur")
+        await asyncio.sleep(3)
+        spam5 = await ctx.send("Markette item satmak için `-rpg sell {item} {miktar}` miktar değeri girilmezse 1 adet satılır")
+        
+      await ctx.send
     async def battlereq(who, _with):
       return False
     async def weapon(userid):
