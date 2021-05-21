@@ -106,6 +106,13 @@ async def whois_error(ctx, error):
     await ctx.reply("sorun oldu ://")
     print(error)
 class rpgame:
+  class text:
+    register = [
+      "kayıt",
+      "kayit",
+      "kaydol",
+      "register",
+      ]
   class funcs:
     async def registered(_id):
       return await sql.defs.is_registered(_id)
@@ -263,7 +270,7 @@ class rpgame:
       maps["Binaiçi"]["specs"]["items_og"]={}
   @client.command
   async def rpg(ctx, *all):
-    if any(all[0] == c for c in rpgame.text.register):
+    if any(all[0] == c.lower() for c in rpgame.text.register):
       await rpgame.defs.register(ctx)
   @client.command()
   async def battle(ctx, _with: discord.Member = None, _map='random', difficulty='normal'):
