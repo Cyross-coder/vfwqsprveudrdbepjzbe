@@ -99,7 +99,7 @@ async def whois_error(ctx, error):
 class rpgame:
   class funcs:
     async def battlereq(who, _with):
-      return True
+      return False
     async def weapon(userid):
      # name=await mysql.equip(userid)
       name="yumruk"
