@@ -134,7 +134,7 @@ class rpgame:
       registered=False
       while not registered:
         #embed
-        await ctx.send(embed=embed)
+        await ctx.send("Selam hevesli çocuk, karakterin için bir kullanıcı adı oluşturman gerekli, 18 karakteri geçmemeli özel karakter içermemelidir")
         def check(message):
           return m.author.id == heroid and m.channel.id == channel
         valid=False
