@@ -18,7 +18,7 @@ class sql:
     im.execute("CREATE TABLE IF NOT EXISTS battles (ilk INT(18), iki INT(18))")
     class defs:
       async def register(userid, charracter):
-        sql.im.execute(f"INSERT INTO `table_name`(id,equips,charracter) VALUES ({userid}, 'yumruk', '{charracter}')")
+        sql.im.execute(f"INSERT INTO `users`(id,equips,charracter) VALUES ({userid}, 'yumruk', '{charracter}')")
         sql.veritabani.commit()
       async def is_registered(user_id):
         r=sql.im.execute(f"SELECT * FROM users WHERE id='{user_id}'")
