@@ -13,7 +13,7 @@ from inc import soru as sorular
 class sql:
     veritabanı=ssql.connect("veri.sql")
     im=veritabanı.cursor()
-    im.execute("CREATE TABLE IF NOT EXISTS (id INT(18) UNSIGNED PRIMARY KEY, xp INT(30) NOT NULL, equips VARCHAR(50) NOT NULL, inventory VARCHAR(255) NOT NULL, charracter VARCHAR(255), datejoin TIMESTAMP DEFAULT CURRENT_TIMESTAMP)")
+    im.execute("CREATE TABLE IF NOT EXISTS (id INT(18) UNSIGNED PRIMARY KEY, xp INT(30) NOT NULL DEFAULT '0', equips VARCHAR(50) NOT NULL DEFAULT '[]', inventory VARCHAR(255) NOT NULL DEFAULT '[], charracter VARCHAR(255), datejoin TIMESTAMP DEFAULT CURRENT_TIMESTAMP)")
     async def register(userid, charracter):
       mycursor.execute(f"INSERT INTO `table_name`(id  ,xp,inventory,equips,charracter) VALUES ({userid},{empinv}, 'nothing', '{charracter}')")
 print(mydb)
