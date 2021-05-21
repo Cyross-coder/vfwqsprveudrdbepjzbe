@@ -268,8 +268,8 @@ class rpgame:
       maps["Binaiçi"]["specs"]["sp"]=0.7
       maps["Binaiçi"]["specs"]["m_speed"]=1.2
       maps["Binaiçi"]["specs"]["items_og"]={}
-  @client.command
-  async def rpgx(ctx, *all):
+  @client.command()
+  async def rpg(ctx, *all):
     if any(all[0] == c.lower() for c in rpgame.text.register):
       await rpgame.defs.register(ctx)
   @client.command()
