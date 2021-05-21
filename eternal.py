@@ -212,10 +212,10 @@ class rpgame:
       maps["Binaiçi"]["specs"]["items_og"]={}
   @client.command()
   async def battle(ctx, _with: discord.Member = None, _map='random', difficulty='normal'):
-    if not rpgame.funcs.registered(ctx.author.id):
+    if not await rpgame.funcs.registered(ctx.author.id):
       embed=discord.Embed(title="Meydan okuma başarısız", description="Henüz bir karakter oluşturmadın?!\n`-rpg kayıt` kayıt ol", color=0xff0000)
       await ctx.send(embed=embed)
-    if not rpgame.funcs.registered(_with.id):
+    if not await rpgame.funcs.registered(_with.id):
       embed=discord.Embed(title="Meydan okuma başarısız", description="Hedefin bu dünyada yok .-.", color=0xff0000)
       await ctx.send(embed=embed)
     if ctx.author.id==_with.id:
