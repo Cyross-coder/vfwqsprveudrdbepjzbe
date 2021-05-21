@@ -15,6 +15,7 @@ class sql:
     veritabanı=ssql.connect("veri.sql")
     im=veritabanı.cursor()
     im.execute("CREATE TABLE IF NOT EXISTS users (id INT(18) PRIMARY KEY, xp INT(30) NOT NULL DEFAULT '0', equips VARCHAR(50) NOT NULL DEFAULT '[]', inventory VARCHAR(255) NOT NULL DEFAULT '[]', charracter VARCHAR(255), datejoin TIMESTAMP DEFAULT CURRENT_TIMESTAMP)")
+    im.execute("CREATE TABLE IF NOT EXISTS battles (ilk INT(18), iki INT(18)")
     async def register(userid, charracter):
       im.execute(f"INSERT INTO `table_name`(id  ,xp,inventory,equips,charracter) VALUES ({userid},{empinv}, 'nothing', '{charracter}')")
 intents = discord.Intents.default()  
@@ -202,8 +203,14 @@ class rpgame:
       maps["Binaiçi"]["specs"]["items_og"]={}
   @client.command()
   async def battle(ctx, _with: discord.Member = None, _map='random', difficulty='normal'):
+    if not rpgame.funcs.registered(ctx.author.id):
+      embed=discord.Embed(title="Meydan okuma başarısız", description="Henüz bir karakter oluşturmadın?!\n`-rpg kayıt` kayıt ol", color=0xff0000)
+      await ctx.send(embed=embed)
+    if not rpgame.funcs.registered(_with.id):
+      embed=discord.Embed(title="Meydan okuma başarısız", description="Hedefin bu dünyada yok .-.", color=0xff0000)
+      await ctx.send(embed=embed)
     if ctx.author.id==_with.id:
-      embed=discord.Embed(title="Meydan okuma başarısız", description="Kendine savaş açamazsın, baka!", color=0xff0000)
+      embed=discord.Embed(title="Meydan okuma başarısız", description="Kendine saldıramazsın, baka!", color=0xff0000)
       await ctx.send(embed=embed)
       return
     if await rpgame.funcs.battlereq(ctx.author.id, _with.id):
