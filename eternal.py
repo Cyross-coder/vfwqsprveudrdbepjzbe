@@ -13,14 +13,15 @@ from discord.ext import commands
 from inc import soru as sorular
 class sql:
     veritabanı=ssql.connect("veri.sql")
-    im=veritabanı.cursor()
+    im=nveritabanı.cursor()
     im.execute("CREATE TABLE IF NOT EXISTS users (id INT(18) PRIMARY KEY, xp INT(30) NOT NULL DEFAULT '0', equips VARCHAR(50) NOT NULL DEFAULT '[]', inventory VARCHAR(255) NOT NULL DEFAULT '[]', charracter VARCHAR(255), datejoin TIMESTAMP DEFAULT CURRENT_TIMESTAMP)")
     im.execute("CREATE TABLE IF NOT EXISTS battles (ilk INT(18), iki INT(18))")
     class defs:
       async def register(userid, charracter):
-        im.execute(f"INSERT INTO `table_name`(id  ,xp,inventory,equips,charracter) VALUES ({userid},{empinv}, 'nothing', '{charracter}')")
+        sql.im.execute(f"INSERT INTO `table_name`(id  ,xp,inventory,equips,charracter) VALUES ({userid},{empinv}, 'nothing', '{charracter}')")
+        veritabanı.commit()
       async def is_registered(user_id):
-        r=im.execute(f"SELECT * FROM users WHERE id=user_id")
+        r=sql.im.execute(f"SELECT * FROM users WHERE id=user_id")
         if r.fetchall() > 0:
           return True
         else:
