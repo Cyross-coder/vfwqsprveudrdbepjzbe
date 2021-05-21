@@ -204,12 +204,14 @@ class rpgame:
   async def battle(ctx, _with: discord.Member = None, _map='random', difficulty='normal'):
     if rpgame.funcs.battlereq(ctx.author.id, _with.id):
       if _map=='random':
-        pmap=rpgame.things.maps.maps[random.choice(rpgame.things.maps.mapdict)]
+        _map=random.choice(rpgame.things.maps.mapdict)
+        pmap=rpgame.things.maps.maps[_map]
       else:
         try:
           pmap=rpgame.things.maps.maps[_map]
         except:
-          pmap=rpgame.things.maps.maps[random.choice(rpgame.things.maps.mapdict)]
+          _map=random.choice(rpgame.things.maps.mapdict)
+          pmap=rpgame.things.maps.maps[_map]
       embed=discord.Embed(title="Meydan okuma", description=f"{ctx.author.name}, {_with.name} meydan okuyor", color=0xde7a37)
       embed.add_field(name="Harita", value=f"{pmap}\n*{pmap['description']}*", inline=False)
       embed.add_field(name=ctx.author.name, value=await rpgame.funcs.weapon(ctx.author.id), inline=True)
