@@ -151,6 +151,10 @@ class rpgame:
               reason+="•İzin verilen uzunluk "+str(rpgame.conf.username['max_lenght'])+" karakter"+endstr
             ctx.send('**Hata**: Geçersiz kullancı adı, '+msg.content+'\n'+reason)
         await rpgame.funcs.register_direct(ctx.author.id, username)
+        embed=discord.Embed(title="Yeni oyuncu kaydı başarılı", description=username" bu dünyaya ayak bastı")
+        embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/843604774649331755/845294478087684166/bilinmeyen.gif")
+        embed.add_field(name="xp", value="0", inline=True)
+        embed.add_field(name="Silah", value="Yumruk", inline=True)
         await ctx.send(embed=embed)
         await asyncio.sleep(2)
         spam1 = await ctx.send("Eternal'a hoşgeldin "+username)
