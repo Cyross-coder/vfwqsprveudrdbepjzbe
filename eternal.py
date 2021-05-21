@@ -1,5 +1,6 @@
 # eternal
-token="ODQzNjQ3ODQxODk2NzU5MzA2.YKG6Rw.iYcQlvHOID1PZEFOyoRghFiwpR4"
+with open("token", 'r') as x:
+  token=x.readlines()[0]
 import discord
 import random
 import asyncio
