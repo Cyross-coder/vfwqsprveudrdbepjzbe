@@ -271,7 +271,7 @@ class rpgame:
   @client.command()
   async def rpg(ctx, *all):
     if any(all[0] == c.lower() for c in rpgame.text.register):
-      await rpgame.defs.register(ctx)
+      await rpgame.funcs.register(ctx)
   @client.command()
   async def battle(ctx, _with: discord.Member = None, _map='random', difficulty='normal'):
     if not await rpgame.funcs.registered(ctx.author.id):
