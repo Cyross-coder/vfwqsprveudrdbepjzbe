@@ -131,7 +131,10 @@ class rpgame:
     async def register(ctx):
       channel=ctx.channel.id
       heroid=ctx.author.id
-      registered=False
+      registered=await rpgame.funcs.registered(ctx.author.id)
+      if registered:
+        ctx.reply("zaten kayıtlısın, baka!")
+        return
       while not registered:
         #embed
         await ctx.send("Selam hevesli çocuk, karakterin için bir kullanıcı adı oluşturman gerekli, 18 karakteri geçmemeli özel karakter içermemelidir")
