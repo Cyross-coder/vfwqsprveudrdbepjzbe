@@ -22,7 +22,7 @@ class sql:
         veritabanı.commit()
       async def is_registered(user_id):
         r=sql.im.execute(f"SELECT * FROM users WHERE id='{user_id}'")
-        if r.fetchall() > 0:
+        if len(r.fetchall()) > 0:
           return True
         else:
           return False
