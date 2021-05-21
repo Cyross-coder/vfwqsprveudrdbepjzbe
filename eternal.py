@@ -103,7 +103,7 @@ class rpgame:
     async def weapon(userid):
      # name=await mysql.equip(userid)
       name="yumruk"
-      if not name == 'nothing':
+      if not name == 'yumruk':
         return weapons[name]
       else:
         return 'yumruk'
