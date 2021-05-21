@@ -15,8 +15,7 @@ class sql:
     im=veritabanı.cursor()
     im.execute("CREATE TABLE IF NOT EXISTS users (id INT(18) PRIMARY KEY, xp INT(30) NOT NULL DEFAULT '0', equips VARCHAR(50) NOT NULL DEFAULT '[]', inventory VARCHAR(255) NOT NULL DEFAULT '[]', charracter VARCHAR(255), datejoin TIMESTAMP DEFAULT CURRENT_TIMESTAMP)")
     async def register(userid, charracter):
-      mycursor.execute(f"INSERT INTO `table_name`(id  ,xp,inventory,equips,charracter) VALUES ({userid},{empinv}, 'nothing', '{charracter}')")
-print(mydb)
+      im.execute(f"INSERT INTO `table_name`(id  ,xp,inventory,equips,charracter) VALUES ({userid},{empinv}, 'nothing', '{charracter}')")
 intents = discord.Intents.default()  
 intents.members = True
 client = commands.Bot("-", intents=intents)
