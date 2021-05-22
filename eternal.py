@@ -368,6 +368,45 @@ class rpgame:
    
 class emoji():
     @client.command()
+    async def seriçal(ctx):
+      canceled=False
+      def check(message):
+        return message.author.id == ctx.author.id and message.channel.id == ctx.channel.id
+      while not cancelled:
+          msg = await client.wait_for('message', check=check)
+          if msg.content == "sg":
+            canceled = True
+            break
+          if "<:" in msg.content or "<a:" in msg.content:
+            pattern = "<(.*?)>"
+            content_emoji = re.search(pattern, msg.content).group(1)
+            if content_emoji.startswith("a:"):
+                content_emoji = content_emoji.replace("a:", "")
+                emoji_id = content_emoji.split(":")[1]
+                r = requests.get(f"https://cdn.discordapp.com/emojis/{emoji_id}.gif")
+                if r.content == b'':
+                    await ctx.send("Emoji bulunamadı.")
+                    return
+                if name is None:
+                    name = content_emoji.split(":")[0]
+                emoji = await ctx.guild.create_custom_emoji(image=r.content, name=name)
+                await ctx.send(f"Emoji <a:{emoji.name}:{emoji.id}> başarıyla dızlandı!")
+            else:
+                emoji_id = content_emoji.split(":")[2]
+                r = requests.get(f"https://cdn.discordapp.com/emojis/{emoji_id}.png")
+                if r.content == b'':
+                    r = requests.get(f"https://cdn.discordapp.com/emojis/{emoji_id}.jpg")
+                    if r.content == b'':
+                        await ctx.send("Emoji bulunamadı.")
+                        return
+                if name is None:
+                    name = content_emoji.split(":")[1]
+                emoji = await ctx.guild.create_custom_emoji(image=r.content, name=name)
+                await ctx.send(f"Emoji <:{emoji.name}:{emoji.id}> başarıyla dızlandı!")
+
+          else:
+            await ctx.reply("Geçersiz mesaj, emoji bulunamadı. Seri işlemden çıkmak için sg yazın")
+    @client.command()
     async def emo(ctx):
       name=None
       content = ctx.message.content
