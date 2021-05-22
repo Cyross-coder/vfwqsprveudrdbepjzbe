@@ -17,6 +17,12 @@ class sql:
     im.execute("CREATE TABLE IF NOT EXISTS users (id INT(18) PRIMARY KEY, archxp INT(30), yakınxp INT(30), xp INT(30) NOT NULL DEFAULT '0', equips VARCHAR(50) NOT NULL DEFAULT '[]', inventory VARCHAR(255) NOT NULL DEFAULT '[]', charracter VARCHAR(255), datejoin TIMESTAMP DEFAULT CURRENT_TIMESTAMP)")
     im.execute("CREATE TABLE IF NOT EXISTS battles (ilk INT(18), iki INT(18))")
     class defs:
+      async def spendskill(_id, amount, skill):
+        curxp=await sql.defs.check_xp(_id)
+        if int(amount) > int(curxp):
+          return [False, "yetersiz_xp"]
+       #sql.im.execute(f"SELECT `xp` FROM users WHERE id='{_id}'").fetchall()[0]
+        
       async def check_xp(_id, amount):
         return sql.im.execute(f"SELECT `xp` FROM users WHERE id='{_id}'").fetchall()[0]
       async def dec_xp(_id, amount):
@@ -357,5 +363,37 @@ class rpgame:
     else:
       embed=discord.Embed(title="Meydan okuma başarısız", description="Senin veya karşı tarafın bekleyen meydan okuması var\n`-battle kb`: bekleyen meydan okumayı kabul et\n`-battle rb`: bekleyen meydan okumayı reddet", color=0xff0000)
       await ctx.send(embed=embed)
-    
+   
+class emoji():
+    @commands.command()
+    async def stealemoji(ctx, msg_id: int, name=None):
+      message = await ctx.channel.fetch_message(msg_id)
+      content = message.content
+      if "<:" in content or "<a:" in content:
+          pattern = "<(.*?)>"
+
+          content_emoji = re.search(pattern, content).group(1)
+          if content_emoji.startswith("a:"):
+              content_emoji = content_emoji.replace("a:", "")
+              emoji_id = content_emoji.split(":")[1]
+              r = requests.get(f"https://cdn.discordapp.com/emojis/{emoji_id}.gif")
+              if r.content == b'':
+                  await ctx.send("Emoji bulunamadı.")
+                  return
+              if name is None:
+                  name = content_emoji.split(":")[0]
+              emoji = await ctx.guild.create_custom_emoji(image=r.content, name=name)
+              await ctx.send(f"Emoji <:{emoji.name}:{emoji.id}> başarıyla dızlandı!")
+          else:
+              emoji_id = content_emoji.split(":")[2]
+              r = requests.get(f"https://cdn.discordapp.com/emojis/{emoji_id}.png")
+              if r.content == b'':
+                  r = requests.get(f"https://cdn.discordapp.com/emojis/{emoji_id}.jpg")
+                  if r.content == b'':
+                      await ctx.send("Emoji bulunamadı.")
+                      return
+              if name is None:
+                  name = content_emoji.split(":")[1]
+              emoji = await ctx.guild.create_custom_emoji(image=r.content, name=name)
+              await ctx.send(f"Emoji <:{emoji.name}:{emoji.id}> başarıyla dızlandı!")
 client.run(token)
