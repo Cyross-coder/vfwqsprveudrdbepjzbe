@@ -366,9 +366,8 @@ class rpgame:
    
 class emoji():
     @client.command()
-    async def emo(ctx, msg_id: int, name=None):
-      message = await ctx.channel.fetch_message(msg_id)
-      content = message.content
+    async def emo(ctx):
+      content = ctx.message.content
       if "<:" in content or "<a:" in content:
           pattern = "<(.*?)>"
 
