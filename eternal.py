@@ -365,7 +365,7 @@ class rpgame:
       await ctx.send(embed=embed)
    
 class emoji():
-    @commands.command()
+    @client.command()
     async def emo(ctx, msg_id: int, name=None):
       message = await ctx.channel.fetch_message(msg_id)
       content = message.content
