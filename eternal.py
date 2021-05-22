@@ -388,8 +388,7 @@ class emoji():
                 if r.content == b'':
                     await ctx.send("Emoji bulunamadı.")
                     return
-                if name is None:
-                    name = content_emoji.split(":")[0]
+                name = content_emoji.split(":")[0]
                 emoji = await ctx.guild.create_custom_emoji(image=r.content, name=name)
                 await ctx.send(f"Emoji <a:{emoji.name}:{emoji.id}> başarıyla dızlandı!")
             else:
@@ -400,8 +399,7 @@ class emoji():
                     if r.content == b'':
                         await ctx.send("Emoji bulunamadı.")
                         return
-                if name is None:
-                    name = content_emoji.split(":")[1]
+                name = content_emoji.split(":")[1]
                 emoji = await ctx.guild.create_custom_emoji(image=r.content, name=name)
                 await ctx.send(f"Emoji <:{emoji.name}:{emoji.id}> başarıyla dızlandı!")
 
