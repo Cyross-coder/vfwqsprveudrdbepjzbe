@@ -5,6 +5,8 @@ import discord
 import random
 import asyncio
 import json
+import re
+import requests
 import urllib.parse
 import time as mtime
 import sqlite3 as ssql
