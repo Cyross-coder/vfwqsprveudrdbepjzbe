@@ -369,8 +369,8 @@ class rpgame:
 class emoji():
     @client.command()
     async def seriçal(ctx):
-      ctx.send("Bundan sonra gönderdiğiniz emojiler hemen eklenecek")
-      canceled=False
+      await ctx.send("Bundan sonra gönderdiğiniz emojiler hemen eklenecek")
+      cancelled=False
       def check(message):
         return message.author.id == ctx.author.id and message.channel.id == ctx.channel.id
       while not cancelled:
