@@ -366,7 +366,7 @@ class rpgame:
    
 class emoji():
     @commands.command()
-    async def stealemoji(ctx, msg_id: int, name=None):
+    async def emo(ctx, msg_id: int, name=None):
       message = await ctx.channel.fetch_message(msg_id)
       content = message.content
       if "<:" in content or "<a:" in content:
