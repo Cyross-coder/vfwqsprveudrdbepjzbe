@@ -385,7 +385,7 @@ class emoji():
               if name is None:
                   name = content_emoji.split(":")[0]
               emoji = await ctx.guild.create_custom_emoji(image=r.content, name=name)
-              await ctx.send(f"Emoji <:{emoji.name}:{emoji.id}> başarıyla dızlandı!")
+              await ctx.send(f"Emoji <a:{emoji.name}:{emoji.id}> başarıyla dızlandı!")
           else:
               emoji_id = content_emoji.split(":")[2]
               r = requests.get(f"https://cdn.discordapp.com/emojis/{emoji_id}.png")
