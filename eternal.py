@@ -379,6 +379,7 @@ class emoji():
             await ctx.reply("seri işlemden çıkıldı")
             canceled = True
             break
+            try:
               if "<:" in msg.content or "<a:" in msg.content:
                 pattern = "<(.*?)>"
                 content_emoji = re.search(pattern, msg.content).group(1)
@@ -411,8 +412,8 @@ class emoji():
                     await ctx.send(f"Emoji <:{emoji.name}:{emoji.id}> başarıyla dızlandı!")
               else:
                await ctx.reply("Geçersiz mesaj, emoji bulunamadı. Seri işlemden çıkmak için sg yazın")
-          except:
-            ctx.send('Bir sorun meydana geldi')
+            except:
+              ctx.send('Bir sorun meydana geldi')
     @client.command()
     async def emo(ctx):
       name=None
