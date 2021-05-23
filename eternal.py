@@ -6,7 +6,7 @@ import random
 import asyncio
 import json
 import re
-import requests
+import aiohttp
 import urllib.parse
 import time as mtime
 import sqlite3 as ssql
@@ -376,35 +376,43 @@ class emoji():
       while not cancelled:
           msg = await client.wait_for('message', check=check)
           if msg.content == "sg":
+            await ctx.reply("seri işlemden çıkıldı")
             canceled = True
             break
-          if "<:" in msg.content or "<a:" in msg.content:
-            pattern = "<(.*?)>"
-            content_emoji = re.search(pattern, msg.content).group(1)
-            if content_emoji.startswith("a:"):
-                content_emoji = content_emoji.replace("a:", "")
-                emoji_id = content_emoji.split(":")[1]
-                r = requests.get(f"https://cdn.discordapp.com/emojis/{emoji_id}.gif")
-                if r.content == b'':
-                    await ctx.send("Emoji bulunamadı.")
-                    return
-                name = content_emoji.split(":")[0]
-                emoji = await ctx.guild.create_custom_emoji(image=r.content, name=name)
-                await ctx.send(f"Emoji <a:{emoji.name}:{emoji.id}> başarıyla dızlandı!")
-            else:
-                emoji_id = content_emoji.split(":")[2]
-                r = requests.get(f"https://cdn.discordapp.com/emojis/{emoji_id}.png")
-                if r.content == b'':
-                    r = requests.get(f"https://cdn.discordapp.com/emojis/{emoji_id}.jpg")
+              if "<:" in msg.content or "<a:" in msg.content:
+                pattern = "<(.*?)>"
+                content_emoji = re.search(pattern, msg.content).group(1)
+                if content_emoji.startswith("a:"):
+                    content_emoji = content_emoji.replace("a:", "")
+                    emoji_id = content_emoji.split(":")[1]
+                    async with aiohttp.ClientSession() as session:
+                     async with session.get(f"https://cdn.discordapp.com/emojis/{emoji_id}.gif", allow_redirects=True) as resp:
+                      r = await resp.read()
                     if r.content == b'':
                         await ctx.send("Emoji bulunamadı.")
                         return
-                name = content_emoji.split(":")[1]
-                emoji = await ctx.guild.create_custom_emoji(image=r.content, name=name)
-                await ctx.send(f"Emoji <:{emoji.name}:{emoji.id}> başarıyla dızlandı!")
-
-          else:
-            await ctx.reply("Geçersiz mesaj, emoji bulunamadı. Seri işlemden çıkmak için sg yazın")
+                    name = content_emoji.split(":")[0]
+                    emoji = await ctx.guild.create_custom_emoji(image=r.content, name=name)
+                    await ctx.send(f"Emoji <a:{emoji.name}:{emoji.id}> başarıyla dızlandı!")
+                else:
+                    emoji_id = content_emoji.split(":")[2]
+                    async with aiohttp.ClientSession() as session:
+                     async with session.get(f"https://cdn.discordapp.com/emojis/{emoji_id}.png", allow_redirects=True) as resp:
+                      r = await resp.read()
+                    if r.content == b'':
+                        async with aiohttp.ClientSession() as session:
+                         async with session.get(f"https://cdn.discordapp.com/emojis/{emoji_id}.jpg", allow_redirects=True) as resp:
+                           r = await resp.read()
+                        if r.content == b'':
+                            await ctx.send("Emoji bulunamadı.")
+                            return
+                    name = content_emoji.split(":")[1]
+                    emoji = await ctx.guild.create_custom_emoji(image=r.content, name=name)
+                    await ctx.send(f"Emoji <:{emoji.name}:{emoji.id}> başarıyla dızlandı!")
+              else:
+               await ctx.reply("Geçersiz mesaj, emoji bulunamadı. Seri işlemden çıkmak için sg yazın")
+          except:
+            ctx.send('Bir sorun meydana geldi')
     @client.command()
     async def emo(ctx):
       name=None
@@ -416,7 +424,9 @@ class emoji():
           if content_emoji.startswith("a:"):
               content_emoji = content_emoji.replace("a:", "")
               emoji_id = content_emoji.split(":")[1]
-              r = requests.get(f"https://cdn.discordapp.com/emojis/{emoji_id}.gif")
+              async with aiohttp.ClientSession() as session:
+                 async with session.get(f"https://cdn.discordapp.com/emojis/{emoji_id}.gif", allow_redirects=True) as resp:
+                  r = await resp.read()
               if r.content == b'':
                   await ctx.send("Emoji bulunamadı.")
                   return
@@ -426,9 +436,13 @@ class emoji():
               await ctx.send(f"Emoji <a:{emoji.name}:{emoji.id}> başarıyla dızlandı!")
           else:
               emoji_id = content_emoji.split(":")[2]
-              r = requests.get(f"https://cdn.discordapp.com/emojis/{emoji_id}.png")
+              async with aiohttp.ClientSession() as session:
+                 async with session.get(f"https://cdn.discordapp.com/emojis/{emoji_id}.png", allow_redirects=True) as resp:
+                  r = await resp.read()
               if r.content == b'':
-                  r = requests.get(f"https://cdn.discordapp.com/emojis/{emoji_id}.jpg")
+                  async with aiohttp.ClientSession() as session:
+                    async with session.get(f"https://cdn.discordapp.com/emojis/{emoji_id}.jpg", allow_redirects=True) as resp:
+                     r = await resp.read()
                   if r.content == b'':
                       await ctx.send("Emoji bulunamadı.")
                       return
