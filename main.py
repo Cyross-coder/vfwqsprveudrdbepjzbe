@@ -2,10 +2,12 @@ from discord.ext import commands
 from various import colored_terminal as cterm
 from various import secs_to_date as nicetime
 from time import time as current_time
+with open("token", "r") as tokenfile:
+  discord_token=tokenfile.readlines()[0]
 outages=[]
 first_connect=False
-client = commands.Bot(command_prefix='e')
-@client.event
+bot = commands.Bot(command_prefix='e ')
+@bot.event
 async def on_connect():
     global outages, first_connect
     if first_connect:
@@ -14,10 +16,13 @@ async def on_connect():
     else:
       print('--------------------')
       cterm.p.green('Giriş yapıldı')
-      print(client.user.name)
-      print(client.user.id)
-      print(f"{len(client.guilds)} sunucuyla ilgeniyor")
+      print(bot.user.name)
+      print(bot.user.id)
+      print(f"{len(bot.guilds)} sunucuyla ilgeniyor")
       print('--------------------')
     first_connect=True
-client.load_extension("cogs.register")
-client.run("ODQzNjQ3ODQxODk2NzU5MzA2.YKG6Rw.P3r35gjMiyLyyWbUGThZ6jyNSfs")
+bot.load_extension("cogs.register")
+bot.load_extension("cogs.ping")
+bot.load_extension("cogs.profile")
+bot.load_extension("cogs.bank")
+bot.run(discord_token)
