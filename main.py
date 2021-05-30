@@ -43,12 +43,12 @@ async def on_connect():
           try:
             bot.load_extension("cogs."+cog.split('.')[0])
             if not args.heroku:
-              cterm.p.green(cterm.l.short('./cogs/'+cog), fspc('Sınıfı başarıyla yüklendi ve aktif'))
+              cterm.p.green(cterm.l.short('./cogs/'+cog), cterm.l.fspc('Sınıfı başarıyla yüklendi ve aktif'))
           except Exception as e:
             if args.heroku:
               print('./cogs/'+cog + str(e).split(':')[-1])
             else:
-              cterm.p.red('./cogs/'+cog, fspc(str(e).split(':')[-1]))
+              cterm.p.red('./cogs/'+cog, cterm.l.fspc(str(e).split(':')[-1]))
       def handler(signum, frame):
         print('')
       signal.signal(signal.SIGINT, handler)
