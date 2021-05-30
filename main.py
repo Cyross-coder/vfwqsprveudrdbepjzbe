@@ -40,7 +40,7 @@ async def on_connect():
         if cog.endswith('.py') and not cog.startswith('_'):
           try:
             bot.load_extension("cogs."+cog.split('.')[0])
-            if not if args.heroku:
+            if not args.heroku:
               cterm.p.green(short('./cogs/'+cog), fspc('Sınıfı başarıyla yüklendi ve aktif'))
           except Exception as e:
             if if args.heroku:
@@ -50,7 +50,7 @@ async def on_connect():
       def handler(signum, frame):
         print('')
       signal.signal(signal.SIGINT, handler)
-      if not if args.heroku:
+      if not args.heroku:
         await resource_usage.main(60)
 
 
