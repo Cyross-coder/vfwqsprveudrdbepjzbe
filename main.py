@@ -38,6 +38,8 @@ async def on_connect():
       first_connect=True
       for cog in os.listdir('./cogs'):
         if cog.endswith('.py') and not cog.startswith('_'):
+         bot.load_extension("cogs."+cog.split('.')[0])
+         if not True:
           try:
             bot.load_extension("cogs."+cog.split('.')[0])
             if not args.heroku:
