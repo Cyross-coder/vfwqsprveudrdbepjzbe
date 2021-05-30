@@ -20,9 +20,9 @@ keep this shit up to date
 """
 vt=login()
 im=vt.cursor()
-im.execute("""CREATE TABLE IF NOT EXISTS 'players'
+im.execute("""CREATE TABLE IF NOT EXISTS players
 ('id', 'username', 'money', 'xp', 'okcu', 'ydvs')""")
-im.execute("CREATE TABLE IF NOT EXISTS 'battles' ('1', '2')")
+im.execute("CREATE TABLE IF NOT EXISTS battles ('1', '2')")
 vt.close()
 async def register(_id, _username, _stage):
   try:
@@ -85,7 +85,7 @@ async def is_battleowner(_id):
     return False
   vt=login()
   im=vt.cursor()
-  _=im.execute(f"SELECT * FROM 'battles' WHERE 1='{_id}'").fetchall()
+  _=im.execute(f"SELECT * FROM battles WHERE 1='{_id}'").fetchall()
   vt.close()
   return True if len(_) > 0 else False
 async def is_battlereceiver(_id):
@@ -93,7 +93,7 @@ async def is_battlereceiver(_id):
     return False
   vt=login()
   im=vt.cursor()
-  _=im.execute(f"SELECT * FROM 'battles' WHERE 2='{_id}'").fetchall()
+  _=im.execute(f"SELECT * FROM battles WHERE 2='{_id}'").fetchall()
   vt.close()
   return True if len(_) > 0 else False
 async def closebattle(_id):
@@ -102,9 +102,9 @@ async def closebattle(_id):
   vt=login()
   im=vt.cursor()
   if is_battleowner(_id):
-    im.execute(f"DELETE FROM 'battles' WHERE 1='{_id}'")
+    im.execute(f"DELETE FROM battles WHERE 1='{_id}'")
   elif is_battlereceiver(_id):
-    im.execute(f"DELETE FROM 'battles' WHERE 2='{_id}'")
+    im.execute(f"DELETE FROM battles WHERE 2='{_id}'")
   else:
     return False
 async def startbattle(_, __):
