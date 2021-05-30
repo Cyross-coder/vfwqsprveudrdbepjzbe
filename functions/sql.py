@@ -1,9 +1,9 @@
 try:
-  import sqlite3
-  engine="sqlite3"
-except:
   import psycopg2
   engine="postegre"
+except:
+  import sqlite3
+  engine="sqlite3"
 def login():
   if engine == 'sqlite3':
     filename="database.sql"
