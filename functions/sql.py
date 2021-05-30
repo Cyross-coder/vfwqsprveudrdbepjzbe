@@ -1,8 +1,16 @@
-import sqlite3
+try:
+  import sqlite3
+  engine="sqlite3"
+except:
+  import psycopg2
+  engine="postegre"
 def login():
-  filename="database.sql"
-  return sqlite3.connect(filename)
-  
+  if engine == 'sqlite3':
+    filename="database.sql"
+    return sqlite3.connect(filename)
+  if engine == 'postegre':
+    DATABASE_URL = os.environ['DATABASE_URL']
+    return psycopg2.connect(DATABASE_URL, sslmode='require')
 """
 Preparr the database for tables,
 this will let us easily purge database when necessary
