@@ -37,8 +37,7 @@ async def register(_id, _username, _stage):
     vt=login()
     im=vt.cursor()
     im.execute(f"""INSERT INTO players (id, username, money, xp, okcu, ydvs) VALUES ("{_id}", "{_username}", "{default['money']}", "{default['xp']}", "{okcu}", "{yakın}")""")
-    vt.commit()
-    vt.close()
+    close(vt)
     return True
   except Exception as e:
     print(e)
@@ -47,7 +46,7 @@ async def is_user_registered(_id):
   vt=login()
   im=vt.cursor()
   _ = True if len(im.execute(f"SELECT * FROM players WHERE id='{_id}'").fetchall()) > 0 else False
-  vt.close()
+  close(vt)
   return _
 async def get_xp(_id):
   if not await is_user_registered(_id):
@@ -55,13 +54,13 @@ async def get_xp(_id):
   vt=login()
   im=vt.cursor()
   _ = im.execute(f"SELECT xp FROM players WHERE id='{_id}'").fetchall()[0][0]
-  vt.close()
+  close(vt)
   return str(_)
 async def get_username(_id):
   vt=login()
   im=vt.cursor()
   _ = im.execute(f"SELECT username FROM players WHERE id='{_id}'").fetchall()[0][0]
-  vt.close()
+  close(vt)
   return str(_)
 async def bolum_xp(_id):
   vt=login()
@@ -69,7 +68,7 @@ async def bolum_xp(_id):
   _ = im.execute(f"SELECT okcu FROM players WHERE id='{_id}'").fetchall()[0][0]
   __ = im.execute(f"SELECT ydvs FROM players WHERE id='{_id}'").fetchall()[0][0]
   Object=[_, __]
-  vt.close()
+  close(vt)
   return Object
 async def get_money(_id):
   if not await is_user_registered(_id):
@@ -77,7 +76,7 @@ async def get_money(_id):
   vt=login()
   im=vt.cursor()
   _ = im.execute(f"SELECT money FROM players WHERE id='{_id}'").fetchall()[0][0]
-  vt.close()
+  close(vt)
   return str(_)
   
 async def is_battleowner(_id):
@@ -86,7 +85,7 @@ async def is_battleowner(_id):
   vt=login()
   im=vt.cursor()
   _=im.execute(f"SELECT * FROM battles WHERE 1='{_id}'").fetchall()
-  vt.close()
+  close(vt)
   return True if len(_) > 0 else False
 async def is_battlereceiver(_id):
   if not await is_user_registered(_id):
@@ -94,9 +93,10 @@ async def is_battlereceiver(_id):
   vt=login()
   im=vt.cursor()
   _=im.execute(f"SELECT * FROM battles WHERE 2='{_id}'").fetchall()
-  vt.close()
+  close(vt)
   return True if len(_) > 0 else False
 async def closebattle(_id):
+  _ =True
   if not is_user_registered(_id):
     return "Kayıtlı değil"
   vt=login()
@@ -106,6 +106,8 @@ async def closebattle(_id):
   elif is_battlereceiver(_id):
     im.execute(f"DELETE FROM battles WHERE 2='{_id}'")
   else:
-    return False
+    _ = False
+  close(vt)
+  return _
 async def startbattle(_, __):
   print (" f")
