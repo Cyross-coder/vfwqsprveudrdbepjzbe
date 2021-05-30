@@ -44,7 +44,7 @@ async def on_connect():
               cterm.p.green(short('./cogs/'+cog), fspc('Sınıfı başarıyla yüklendi ve aktif'))
           except Exception as e:
             if args.heroku:
-              print('./cogs/'+cog + fspcc(str(e).split(':')[-1]))
+              print('./cogs/'+cog + str(e).split(':')[-1])
             else:
               cterm.p.red('./cogs/'+cog, fspc(str(e).split(':')[-1]))
       def handler(signum, frame):
