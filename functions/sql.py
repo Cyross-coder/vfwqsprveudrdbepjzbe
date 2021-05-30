@@ -21,8 +21,8 @@ keep this shit up to date
 vt=login()
 im=vt.cursor()
 im.execute("""CREATE TABLE IF NOT EXISTS players
-(id INT(18), username VARCHAR(30), money INT(50), xp INT(50), okcu INT(50), ydvs INT(50))""")
-im.execute("CREATE TABLE IF NOT EXISTS battles (1 INT(18), 2 INT(18))")
+(id INTEGER, username VARCHAR(30), money INTEGER, xp INTEGER, okcu INTEGER, ydvs INTEGER)""")
+im.execute("CREATE TABLE IF NOT EXISTS battles (1 INTEGER, 2 INTEGER)")
 vt.close()
 async def register(_id, _username, _stage):
   try:
