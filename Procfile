@@ -1,1 +1,1 @@
-ET: python eternal.py --heroku
+ET: python main.py --heroku
