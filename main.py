@@ -8,10 +8,19 @@ import discord
 import os
 import signal
 import multiprocessing
+import argparse
+parser = argparse.ArgumentParser()
+parser.add_argument("-hr", "--heroku", help="if running on heroku",
+                    action="store_true")
+args = parser.parse_args()
 fspc = lambda text, t=2: ('\t'*t)+text[1:] if text.startswith(' ') else ('\t'*t)+text
 short = lambda text, max=15: text if not len(text) >= max else text[:max-5]+'...'+text[-2:]
-with open("token", "r") as tokenfile:
-  discord_token=tokenfile.readlines()[0]
+if args.heroku:
+  discord_token=os.environ['token']
+else:
+  with open("token", "r") as tokenfile:
+    discord_token=tokenfile.readlines()[0]
+    
 outages=[]
 first_connect=False
 intents = discord.Intents.default()
