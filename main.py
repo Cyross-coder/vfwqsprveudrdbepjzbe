@@ -38,10 +38,12 @@ async def on_connect():
       first_connect=True
       for cog in os.listdir('./cogs'):
         if cog.endswith('.py') and not cog.startswith('_'):
+         bot.load_extension("cogs."+cog.split('.')[0])
+         if not True:
           try:
             bot.load_extension("cogs."+cog.split('.')[0])
             if not args.heroku:
-              cterm.p.green(short('./cogs/'+cog), fspc('Sınıfı başarıyla yüklendi ve aktif'))
+              cterm.p.green(cterm.l.short('./cogs/'+cog), fspc('Sınıfı başarıyla yüklendi ve aktif'))
           except Exception as e:
             if args.heroku:
               print('./cogs/'+cog + str(e).split(':')[-1])
