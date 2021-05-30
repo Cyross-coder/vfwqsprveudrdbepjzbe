@@ -40,16 +40,18 @@ async def on_connect():
         if cog.endswith('.py') and not cog.startswith('_'):
           try:
             bot.load_extension("cogs."+cog.split('.')[0])
-            cterm.p.green(short('./cogs/'+cog), fspc('Sınıfı başarıyla yüklendi ve aktif'))
+            if not if args.heroku:
+              cterm.p.green(short('./cogs/'+cog), fspc('Sınıfı başarıyla yüklendi ve aktif'))
           except Exception as e:
-            cterm.p.red('./cogs/'+cog, fspc(str(e).split(':')[-1]))
+            if if args.heroku:
+              print('./cogs/'+cog + fspcc(str(e).split(':')[-1]))
+            else:
+              cterm.p.red('./cogs/'+cog, fspc(str(e).split(':')[-1]))
       def handler(signum, frame):
         print('')
       signal.signal(signal.SIGINT, handler)
-      try:
+      if not if args.heroku:
         await resource_usage.main(60)
-      except KeyboardInterrupt:
-        print('')
 
 
 #bot.loop.create_task(delete_messages_older_thn.main(bot, 500, 839836362232430596))
