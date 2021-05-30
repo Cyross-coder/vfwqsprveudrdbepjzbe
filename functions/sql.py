@@ -22,7 +22,7 @@ vt=login()
 im=vt.cursor()
 im.execute("""CREATE TABLE IF NOT EXISTS players
 (id INTEGER, username VARCHAR(30), money INTEGER, xp INTEGER, okcu INTEGER, ydvs INTEGER)""")
-im.execute("CREATE TABLE IF NOT EXISTS battles (1 INTEGER, 2 INTEGER)")
+im.execute("CREATE TABLE IF NOT EXISTS battles (`1` INTEGER, `2` INTEGER)")
 vt.close()
 async def register(_id, _username, _stage):
   try:
