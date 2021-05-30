@@ -1,3 +1,5 @@
+import os
+
 try:
   import psycopg2
   engine="postegre"
