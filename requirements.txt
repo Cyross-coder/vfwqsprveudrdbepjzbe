@@ -1,2 +1,4 @@
 discord
 psycopg2-binary
+ffmpeg
+PyNaCl
